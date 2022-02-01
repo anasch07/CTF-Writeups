@@ -56,7 +56,7 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     And we get our shell & flag.
 
     <p align="center">
-    <img src="/2022/NCSC/img/babyflag.png"><br/>
+    <img src="img/babyflag.png"><br/>
     </p>
 
   #### 2. Babypwn
@@ -94,22 +94,22 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     }
     ```
     </details>
-    That's a ret2win, we have control on the `scanf`'s format & we'll be writing into `buffer`. We start gdb to do some tests, you can find the binary [here](https://github.com/M0ngi/CTF-Writeups/blob/main/2022/NCSC/pwn/freedom). We need to get our win address.
+    That's a ret2win, we have control on the `scanf`'s format & we'll be writing into `buffer`. We start gdb to do some tests, you can find the binary [here](https://github.com/M0ngi/CTF-Writeups/blob/mainpwn/freedom). We need to get our win address.
 
     <p align="center">
-      <img src="/2022/NCSC/img/freedomgdb.png"><br/>
+      <img src="img/freedomgdb.png"><br/>
     </p>
 
     Now, we need to get the length of our payload. Since we have control over the format, we'll be reading a string using `%s` & we'll use this pattern: `azertyuiopqsdfghjklmwxcvbnaazzeerrttyyuuiiooppmmllkkjjhhggffddsqqwwxxccvvbbnn`.
 
     <p align="center">
-      <img src="/2022/NCSC/img/freedomgdb2.png"><br/>
+      <img src="img/freedomgdb2.png"><br/>
     </p>
 
     And we get a segmentation fault:
 
     <p align="center">
-      <img src="/2022/NCSC/img/freedomgdb3.png"><br/>
+      <img src="img/freedomgdb3.png"><br/>
     </p>
 
     Our RIP: `0x6e6e626276 ('vbbnn')`, we now know the proper payload to change the RIP: `azertyuiopqsdfghjklmwxcvbnaazzeerrttyyuuiiooppmmllkkjjhhggffddsqqwwxxccv`
@@ -157,7 +157,7 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     And a link to this page:
 
     <p align="center">
-      <img src="/2022/NCSC/img/webpingy.png"><br/>
+      <img src="img/webpingy.png"><br/>
     </p>
 
     If we use `www.google.com` as an input, we'll get ` an error has occurred ! `, Let's have a look at the code.
@@ -172,18 +172,18 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     Our final payload should look like this: `;cmd;echo \` which will result in executing `cmd` & that's our shell! Now we can try to get the content of `/flag` using `;cat /flag;echo \` as a payload & we get our flag!
 
     <p align="center">
-      <img src="/2022/NCSC/img/webpingyflag.png"><br/>
+      <img src="img/webpingyflag.png"><br/>
     </p>
       
   #### 2.  Welcome To Web Universe
     
-    For this challenge, we get a zip with the source code [Link](/2022/NCSC/Welcome%20To%20Web%20Universe)
+    For this challenge, we get a zip with the source code [Link](Welcome%20To%20Web%20Universe)
 
     And a link to an empty page that contains `Everything is good afaik`.
       
-    Looking at the source code, we know that we have a flask web server, if we examine the [main.py](/2022/NCSC/Welcome%20To%20Web%20Universe/src/main.py) we see that we have 2 routes, `/v1/status` & `/flag`, we'll be aiming for the flag route. If we check the link we got, we can see that we are in `/leetstatus`, this looks weird.
+    Looking at the source code, we know that we have a flask web server, if we examine the [main.py](Welcome%20To%20Web%20Universe/src/main.py) we see that we have 2 routes, `/v1/status` & `/flag`, we'll be aiming for the flag route. If we check the link we got, we can see that we are in `/leetstatus`, this looks weird.
       
-    Digging more into the files given, if we check the configuration file located in [nginx](/2022/NCSC/Welcome%20To%20Web%20Universe/nginx), we find this configuration
+    Digging more into the files given, if we check the configuration file located in [nginx](Welcome%20To%20Web%20Universe/nginx), we find this configuration
     
     ```config
     server {
@@ -280,7 +280,7 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     For this one, we get this page
 
     <p align="center">
-      <img src="/2022/NCSC/img/race.png"><br/>
+      <img src="img/race.png"><br/>
     </p>
       
     And we get the source code
@@ -346,7 +346,7 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     And we run that & upload our `payload.php` to get our flag:
       
     <p align="center">
-      <img src="/2022/NCSC/img/raceflag.png"><br/>
+      <img src="img/raceflag.png"><br/>
     </p>
       
 * ### Forensics
@@ -365,13 +365,13 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     Opening the capture file using wireshark & going throught the requests, we can notice the following:
       
     <p align="center">
-      <img src="/2022/NCSC/img/attack01_1.png"><br/>
+      <img src="img/attack01_1.png"><br/>
     </p>
       
     We can see in the picture above that IP `5.8.16.237` is using somekind of a dict attack to find files in the server. If we dig more, we'll find this:
     
     <p align="center">
-      <img src="/2022/NCSC/img/attack01_2.png"><br/>
+      <img src="img/attack01_2.png"><br/>
     </p>
       
     That's a webshell, this is definitely our attacker! We got the IP `5.8.16.237` & a quick IP lookup gives us the following
@@ -384,7 +384,7 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     If we dig more into this, we'll find a POST request to the webshell that contains a binary file:
       
     <p align="center">
-      <img src="/2022/NCSC/img/attack01_3.png"><br/>
+      <img src="img/attack01_3.png"><br/>
     </p>
     
     We get the binary name! `hickityhackityOWO.exe`
@@ -406,13 +406,13 @@ I've participated in the CTF with [Aziz Zribi](https://www.facebook.com/Aziz.Zri
     Similar to Jail but more limited in characters, we only have `()<?$` now. So when I was trying some random commands in my terminal, I landed on this: `<filename`, if you try that on a file, you'll get the following:
 
     <p align="center">
-      <img src="/2022/NCSC/img/prison1.png"><br/>
+      <img src="img/prison1.png"><br/>
     </p>
 
     This can be of use, but if we try that in our shell we don't get anything, we are one step closer. Now, how can we get the content to be printed in our screen? In shell, we can use `$(cmd)` in order to execute a command, so what if we pass the content of our file as a command? 
 
     <p align="center">
-      <img src="/2022/NCSC/img/prison2.png"><br/>
+      <img src="img/prison2.png"><br/>
     </p>
     
     We get our flag!
